@@ -4,12 +4,12 @@ import { StyleSheet, Linking, Alert } from "react-native";
 import { GITHUB_URL } from "../lib/constants/constants";
 import Constants from "expo-constants";
 
-const Topbar = () => {
+const Topbar = ({ text, onIconClick }) => {
     return (
         <Appbar style={styles.top}>
-            <Appbar.Action icon="menu" onPress={() => {}} />
+            <Appbar.Action icon="menu" onPress={onIconClick} />
 
-            <Appbar.Content title="Toolkit" />
+            <Appbar.Content title={text} />
 
             <Appbar.Action
                 icon="github"
