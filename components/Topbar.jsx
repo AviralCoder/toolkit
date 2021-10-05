@@ -9,7 +9,7 @@ const Topbar = ({ text, onIconClick }) => {
         <Appbar style={styles.top}>
             <Appbar.Action icon="menu" onPress={onIconClick} />
 
-            <Appbar.Content title={text} />
+            <Appbar.Content title={text} titleStyle={styles.title} />
 
             <Appbar.Action
                 icon="github"
@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         top: Constants.statusBarHeight,
+    },
+    title: {
+        fontFamily: "MontserratRegular",
     },
 });
 

@@ -1,9 +1,12 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Home from "./screens/Home";
 import BMI_Calculator from "./screens/BMI_Calculator";
 import { COLOURS } from "./lib/colors/colors";
+import AppLoading from "expo-app-loading";
+import loadFonts from "./functions/loadFonts";
 
 const Drawer = createDrawerNavigator();
 
@@ -16,21 +19,36 @@ const customTheme = {
 };
 
 const App = () => {
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+
+    useEffect(() => {
+        try {
+            loadFonts();
+            setFontsLoaded(true);
+        } catch (e) {
+            console.error(e);
+        }
+    }, []);
+
+    if (!fontsLoaded) return <AppLoading />;
+
     return (
-        <NavigationContainer theme={customTheme}>
-            <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen
-                    name="Home"
-                    component={Home}
-                    options={{ headerShown: false }}
-                />
-                <Drawer.Screen
-                    name="BMI"
-                    component={BMI_Calculator}
-                    options={{ headerShown: false }}
-                />
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <React.Fragment>
+            <NavigationContainer theme={customTheme}>
+                <Drawer.Navigator initialRouteName="Home">
+                    <Drawer.Screen
+                        name="Home"
+                        component={Home}
+                        options={{ headerShown: false }}
+                    />
+                    <Drawer.Screen
+                        name="BMI"
+                        component={BMI_Calculator}
+                        options={{ headerShown: false }}
+                    />
+                </Drawer.Navigator>
+            </NavigationContainer>
+        </React.Fragment>
     );
 };
 
