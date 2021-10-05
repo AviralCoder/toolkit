@@ -29,7 +29,11 @@ const Home = ({ navigation }) => {
 
     return (
         <React.Fragment>
-            <StatusBar style="auto" />
+            {Constants.isDevice ? (
+                <StatusBar style="auto" backgroundColor="#6200ee" />
+            ) : (
+                <StatusBar style="auto" />
+            )}
             <View style={styles.marginTop}>
                 <Topbar
                     text="Toolkit"
