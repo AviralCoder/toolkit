@@ -7,7 +7,7 @@ const Body = ({ children }) => {
 
 const styles = StyleSheet.create({
     body: {
-        marginTop: 60,
+        marginTop: 120,
     },
 });
 
