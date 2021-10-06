@@ -34,6 +34,7 @@ const Home = ({ navigation }) => {
             ) : (
                 <StatusBar style="auto" />
             )}
+
             <View style={styles.marginTop}>
                 <Topbar
                     text="Toolkit"

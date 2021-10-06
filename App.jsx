@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import TodoList from "./screens/TodoList";
 import Home from "./screens/Home";
 import BMI_Calculator from "./screens/BMI_Calculator";
 import { COLOURS } from "./lib/colors/colors";
@@ -44,6 +45,12 @@ const App = () => {
                     <Drawer.Screen
                         name="BMI"
                         component={BMI_Calculator}
+                        options={{ headerShown: false }}
+                    />
+
+                    <Drawer.Screen
+                        name="Todo List"
+                        component={TodoList}
                         options={{ headerShown: false }}
                     />
                 </Drawer.Navigator>

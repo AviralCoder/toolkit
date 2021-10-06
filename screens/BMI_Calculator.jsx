@@ -14,7 +14,7 @@ import {
 } from "react-native-paper";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import Slider from "@react-native-community/slider";
 import BMICalculate from "../functions/bmiCalculate";
 
@@ -144,7 +144,6 @@ const BMI_Calculator = ({ navigation }) => {
                             icon="calculator"
                             onPress={() => {
                                 calculateBMI();
-                                console.log(`${results.bmi} ${results.phrase}`);
                                 setModalVisible(true);
                             }}
                             style={{
