@@ -27,9 +27,7 @@ const TodoList = ({ navigation }) => {
                     icon="plus"
                     mode="contained"
                     style={{ marginHorizontal: 20, marginTop: 20 }}
-                    onPress={() => {
-                        console.log("Add button clicked");
-                    }}
+                    onPress={() => {}}
                 >
                     Add
                 </Button>
