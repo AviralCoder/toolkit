@@ -15,7 +15,7 @@ const customTheme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        primary: COLOURS.reactNavigationPrimary,
+        primary: COLOURS.primary,
     },
 };
 

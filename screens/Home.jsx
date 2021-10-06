@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
     return (
         <React.Fragment>
             {Constants.isDevice ? (
-                <StatusBar style="auto" backgroundColor="#6200ee" />
+                <StatusBar style="auto" backgroundColor={COLOURS.primary} />
             ) : (
                 <StatusBar style="auto" />
             )}

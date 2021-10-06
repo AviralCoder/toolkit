@@ -17,6 +17,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, ScrollView } from "react-native";
 import Slider from "@react-native-community/slider";
 import BMICalculate from "../functions/bmiCalculate";
+import { COLOURS } from "../lib/colors/colors";
 
 const BMI_Calculator = ({ navigation }) => {
     const [gender, setGender] = useState("male");
@@ -40,7 +41,7 @@ const BMI_Calculator = ({ navigation }) => {
         <React.Fragment>
             <Provider>
                 {Constants.isDevice ? (
-                    <StatusBar style="auto" backgroundColor="#6200ee" />
+                    <StatusBar style="auto" backgroundColor={COLOURS.primary} />
                 ) : (
                     <StatusBar style="auto" />
                 )}
@@ -59,13 +60,13 @@ const BMI_Calculator = ({ navigation }) => {
                             <RadioButton.Item
                                 label="Male"
                                 value="male"
-                                color="#6200ee"
+                                color={COLOURS.primary}
                                 labelStyle={styles.radioGroupText}
                             />
                             <RadioButton.Item
                                 label="Female"
                                 value="female"
-                                color="#6200ee"
+                                color={COLOURS.primary}
                                 labelStyle={styles.radioGroupText}
                             />
                         </RadioButton.Group>
@@ -76,9 +77,11 @@ const BMI_Calculator = ({ navigation }) => {
                                 style={{ width: 350, height: 40 }}
                                 minimumValue={0}
                                 maximumValue={250}
-                                minimumTrackTintColor="#6200ee"
-                                maximumTrackTintColor="#b6b1b1"
-                                thumbTintColor="#6200ee"
+                                minimumTrackTintColor={COLOURS.primary}
+                                maximumTrackTintColor={
+                                    COLOURS.sliderMaxTrackTint
+                                }
+                                thumbTintColor={COLOURS.primary}
                                 value={height}
                                 step={1}
                                 onValueChange={(val) => setHeight(val)}
