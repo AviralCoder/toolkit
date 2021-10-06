@@ -3,7 +3,15 @@ import { useState } from "react";
 import Topbar from "../components/Topbar";
 import Body from "../layout/Body";
 import Flexbox from "../layout/Flexbox";
-import { RadioButton, Surface, Avatar, Button } from "react-native-paper";
+import {
+    RadioButton,
+    Surface,
+    Avatar,
+    Button,
+    Portal,
+    Modal,
+    Provider,
+} from "react-native-paper";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
@@ -19,6 +27,7 @@ const BMI_Calculator = ({ navigation }) => {
         bmi: 0,
         phrase: "",
     });
+    const [modalVisible, setModalVisible] = useState(false);
 
     const calculateBMI = () => {
         const bmiCalculator = new BMICalculate(gender, height, weight, age);
@@ -29,121 +38,150 @@ const BMI_Calculator = ({ navigation }) => {
 
     return (
         <React.Fragment>
-            {Constants.isDevice ? (
-                <StatusBar style="auto" backgroundColor="#6200ee" />
-            ) : (
-                <StatusBar style="auto" />
-            )}
+            <Provider>
+                {Constants.isDevice ? (
+                    <StatusBar style="auto" backgroundColor="#6200ee" />
+                ) : (
+                    <StatusBar style="auto" />
+                )}
 
-            <Topbar
-                text="BMI Calculator"
-                onIconClick={() => navigation.toggleDrawer()}
-            />
+                <Topbar
+                    text="BMI Calculator"
+                    onIconClick={() => navigation.toggleDrawer()}
+                />
 
-            <Body>
-                <ScrollView>
-                    <RadioButton.Group
-                        onValueChange={(gender) => setGender(gender)}
-                        value={gender}
-                    >
-                        <RadioButton.Item
-                            label="Male"
-                            value="male"
-                            color="#6200ee"
-                            labelStyle={styles.radioGroupText}
-                        />
-                        <RadioButton.Item
-                            label="Female"
-                            value="female"
-                            color="#6200ee"
-                            labelStyle={styles.radioGroupText}
-                        />
-                    </RadioButton.Group>
-
-                    <Surface style={styles.heightView}>
-                        <Text style={styles.heightViewText}>Height</Text>
-                        <Slider
-                            style={{ width: 350, height: 40 }}
-                            minimumValue={0}
-                            maximumValue={250}
-                            minimumTrackTintColor="#6200ee"
-                            maximumTrackTintColor="#b6b1b1"
-                            thumbTintColor="#6200ee"
-                            value={height}
-                            step={1}
-                            onValueChange={(val) => setHeight(val)}
-                        />
-
-                        <Text style={styles.heightText}>{height} cm</Text>
-                    </Surface>
-
-                    <Surface style={styles.weightView}>
-                        <Text style={styles.weightViewTitle}>Weight</Text>
-
-                        <Text style={styles.weightViewText}>{weight} kg</Text>
-
-                        <Flexbox>
-                            <Avatar.Icon
-                                icon="plus"
-                                size={40}
-                                style={styles.iconCommonStyles}
-                                onTouchStart={() => {
-                                    setWeight((weight) => weight + 1);
-                                }}
+                <Body>
+                    <ScrollView>
+                        <RadioButton.Group
+                            onValueChange={(gender) => setGender(gender)}
+                            value={gender}
+                        >
+                            <RadioButton.Item
+                                label="Male"
+                                value="male"
+                                color="#6200ee"
+                                labelStyle={styles.radioGroupText}
                             />
-                            <Avatar.Icon
-                                icon="minus"
-                                size={40}
-                                style={styles.iconCommonStyles}
-                                onTouchStart={() => {
-                                    setWeight((weight) => weight - 1);
-                                }}
+                            <RadioButton.Item
+                                label="Female"
+                                value="female"
+                                color="#6200ee"
+                                labelStyle={styles.radioGroupText}
                             />
-                        </Flexbox>
-                    </Surface>
+                        </RadioButton.Group>
 
-                    <Surface style={styles.ageView}>
-                        <Text style={styles.ageViewTitle}>Age</Text>
-
-                        <Text style={styles.ageViewText}>{age} years</Text>
-
-                        <Flexbox>
-                            <Avatar.Icon
-                                icon="plus"
-                                size={40}
-                                style={styles.iconCommonStyles}
-                                onTouchStart={() => {
-                                    setAge((age) => age + 1);
-                                }}
+                        <Surface style={styles.heightView}>
+                            <Text style={styles.heightViewText}>Height</Text>
+                            <Slider
+                                style={{ width: 350, height: 40 }}
+                                minimumValue={0}
+                                maximumValue={250}
+                                minimumTrackTintColor="#6200ee"
+                                maximumTrackTintColor="#b6b1b1"
+                                thumbTintColor="#6200ee"
+                                value={height}
+                                step={1}
+                                onValueChange={(val) => setHeight(val)}
                             />
-                            <Avatar.Icon
-                                icon="minus"
-                                size={40}
-                                style={styles.iconCommonStyles}
-                                onTouchStart={() => {
-                                    setAge((age) => age - 1);
-                                }}
-                            />
-                        </Flexbox>
-                    </Surface>
 
-                    <Button
-                        mode="contained"
-                        icon="calculator"
-                        onPress={() => {
-                            calculateBMI();
-                            console.log(`${results.bmi} ${results.phrase}`);
-                        }}
-                        style={{
-                            marginHorizontal: 20,
-                            marginTop: 15,
-                            marginBottom: 30,
-                        }}
-                    >
-                        Calculate
-                    </Button>
-                </ScrollView>
-            </Body>
+                            <Text style={styles.heightText}>{height} cm</Text>
+                        </Surface>
+
+                        <Surface style={styles.weightView}>
+                            <Text style={styles.weightViewTitle}>Weight</Text>
+
+                            <Text style={styles.weightViewText}>
+                                {weight} kg
+                            </Text>
+
+                            <Flexbox>
+                                <Avatar.Icon
+                                    icon="plus"
+                                    size={40}
+                                    style={styles.iconCommonStyles}
+                                    onTouchStart={() => {
+                                        setWeight((weight) => weight + 1);
+                                    }}
+                                />
+                                <Avatar.Icon
+                                    icon="minus"
+                                    size={40}
+                                    style={styles.iconCommonStyles}
+                                    onTouchStart={() => {
+                                        setWeight((weight) => weight - 1);
+                                    }}
+                                />
+                            </Flexbox>
+                        </Surface>
+
+                        <Surface style={styles.ageView}>
+                            <Text style={styles.ageViewTitle}>Age</Text>
+
+                            <Text style={styles.ageViewText}>{age} years</Text>
+
+                            <Flexbox>
+                                <Avatar.Icon
+                                    icon="plus"
+                                    size={40}
+                                    style={styles.iconCommonStyles}
+                                    onTouchStart={() => {
+                                        setAge((age) => age + 1);
+                                    }}
+                                />
+                                <Avatar.Icon
+                                    icon="minus"
+                                    size={40}
+                                    style={styles.iconCommonStyles}
+                                    onTouchStart={() => {
+                                        setAge((age) => age - 1);
+                                    }}
+                                />
+                            </Flexbox>
+                        </Surface>
+
+                        <Button
+                            mode="contained"
+                            icon="calculator"
+                            onPress={() => {
+                                calculateBMI();
+                                console.log(`${results.bmi} ${results.phrase}`);
+                                setModalVisible(true);
+                            }}
+                            style={{
+                                marginHorizontal: 20,
+                                marginTop: 15,
+                                marginBottom: 30,
+                            }}
+                        >
+                            Calculate
+                        </Button>
+                    </ScrollView>
+
+                    <Portal>
+                        <Modal
+                            visible={modalVisible}
+                            onDismiss={() => {
+                                setModalVisible(false);
+                            }}
+                            contentContainerStyle={{
+                                backgroundColor: "white",
+                                padding: 20,
+                                marginHorizontal: 20,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    fontFamily: "MontserratRegular",
+                                    textAlign: "center",
+                                }}
+                            >
+                                {`BMI: ${results.bmi} \n ${results.phrase}`}
+                            </Text>
+                        </Modal>
+                    </Portal>
+                </Body>
+            </Provider>
         </React.Fragment>
     );
 };
