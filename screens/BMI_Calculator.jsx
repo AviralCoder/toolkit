@@ -40,6 +40,7 @@ const BMI_Calculator = ({ navigation }) => {
     return (
         <React.Fragment>
             <Provider>
+                {/* conditional rendering over here so that the status bar looks good on android device and the android emulator as well .. */}
                 {Constants.isDevice ? (
                     <StatusBar style="auto" backgroundColor={COLOURS.primary} />
                 ) : (

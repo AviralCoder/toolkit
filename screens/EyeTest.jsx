@@ -25,9 +25,10 @@ const EyeTest = ({ navigation }) => {
             });
         }, 3000);
     };
-
+    it commit -m "added a comment so that collaborators if any :( can understad the conditional rendering "  
     return (
         <>
+            {/* conditional rendering over here so that the status bar looks good on android device and the android emulator as well .. */}
             {Constants.isDevice ? (
                 <StatusBar style="auto" backgroundColor={COLOURS.primary} />
             ) : (
