@@ -8,6 +8,7 @@ import { COLOURS } from "./lib/colors/colors";
 import AppLoading from "expo-app-loading";
 import loadFonts from "./functions/loadFonts";
 import EyeTest from "./screens/EyeTest";
+import UnitConversion from "./screens/UnitConversion";
 
 const Drawer = createDrawerNavigator();
 
@@ -50,6 +51,11 @@ const App = () => {
                     <Drawer.Screen
                         name="Eye Test"
                         component={EyeTest}
+                        options={{ headerShown: false }}
+                    />
+                    <Drawer.Screen
+                        name="Unit Conversion"
+                        component={UnitConversion}
                         options={{ headerShown: false }}
                     />
                 </Drawer.Navigator>

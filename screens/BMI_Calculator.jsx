@@ -11,6 +11,8 @@ import {
     Portal,
     Modal,
     Provider,
+    Paragraph,
+    Dialog,
 } from "react-native-paper";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
@@ -161,27 +163,31 @@ const BMI_Calculator = ({ navigation }) => {
                     </ScrollView>
 
                     <Portal>
-                        <Modal
+                        <Dialog
                             visible={modalVisible}
                             onDismiss={() => {
                                 setModalVisible(false);
                             }}
-                            contentContainerStyle={{
-                                backgroundColor: "white",
-                                padding: 20,
-                                marginHorizontal: 20,
-                            }}
                         >
-                            <Text
-                                style={{
-                                    fontSize: 20,
-                                    fontFamily: "MontserratRegular",
-                                    textAlign: "center",
-                                }}
-                            >
-                                {`BMI: ${results.bmi} \n ${results.phrase}`}
-                            </Text>
-                        </Modal>
+                            <Dialog.Title>Results</Dialog.Title>
+                            <Dialog.Content>
+                                <Text
+                                    style={{
+                                        fontSize: 18,
+                                        textAlign: "center",
+                                    }}
+                                >{`BMI: ${results.bmi} \n${results.phrase}`}</Text>
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <Button
+                                    onPress={() => {
+                                        setModalVisible(false);
+                                    }}
+                                >
+                                    Okay
+                                </Button>
+                            </Dialog.Actions>
+                        </Dialog>
                     </Portal>
                 </Body>
             </Provider>
