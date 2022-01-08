@@ -8,7 +8,7 @@ import { COLOURS } from "./lib/colors/colors";
 import AppLoading from "expo-app-loading";
 import loadFonts from "./functions/loadFonts";
 import EyeTest from "./screens/EyeTest";
-import UnitConversion from "./screens/UnitConversion";
+import SleepMusic from "./screens/SleepMusic";
 
 const Drawer = createDrawerNavigator();
 
@@ -54,8 +54,8 @@ const App = () => {
                         options={{ headerShown: false }}
                     />
                     <Drawer.Screen
-                        name="Unit Conversion"
-                        component={UnitConversion}
+                        name="Sleep Music"
+                        component={SleepMusic}
                         options={{ headerShown: false }}
                     />
                 </Drawer.Navigator>
