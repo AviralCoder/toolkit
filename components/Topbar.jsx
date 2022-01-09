@@ -27,6 +27,23 @@ const Topbar = ({ text, onIconClick }) => {
                     });
                 }}
             />
+
+            <Appbar.Action
+                icon="github"
+                onPress={() => {
+                    Linking.openURL(GITHUB_URL).catch((err) => {
+                        Alert.alert(
+                            "Fail",
+                            `Opening the github repo failed - ${err}`,
+                            [
+                                {
+                                    text: "Okay",
+                                },
+                            ]
+                        );
+                    });
+                }}
+            />
         </Appbar>
     );
 };
