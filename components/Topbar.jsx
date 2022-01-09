@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Appbar } from "react-native-paper";
 import { StyleSheet, Linking, Alert } from "react-native";
-import { GITHUB_URL } from "../lib/constants/constants";
+import { GITHUB_URL, PRIVACY_LINK } from "../lib/constants/constants";
 import Constants from "expo-constants";
 
 const Topbar = ({ text, onIconClick }) => {
@@ -29,12 +29,12 @@ const Topbar = ({ text, onIconClick }) => {
             />
 
             <Appbar.Action
-                icon="github"
+                icon="card-text-outline"
                 onPress={() => {
-                    Linking.openURL(GITHUB_URL).catch((err) => {
+                    Linking.openURL(PRIVACY_LINK).catch((err) => {
                         Alert.alert(
                             "Fail",
-                            `Opening the github repo failed - ${err}`,
+                            `Opening the privacy policy failed - ${err}`,
                             [
                                 {
                                     text: "Okay",

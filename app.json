@@ -14,14 +14,13 @@
             "fallbackToCacheTimeout": 0
         },
         "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": false
-        },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/logo.png",
                 "backgroundColor": "#6200ee"
-            }
+            },
+            "package": "com.aviralcoder.toolkit",
+            "versionCode": 1
         },
         "web": {
             "favicon": "./assets/logo.png"

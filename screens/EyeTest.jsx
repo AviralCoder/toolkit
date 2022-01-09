@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { COLOURS } from "../lib/colors/colors";
 import LetterTest from "../components/LetterTest";
 import { WORDS } from "../lib/constants/constants";
+import * as Clipboard from "expo-clipboard";
 
 const EyeTest = ({ navigation }) => {
     const [state, setState] = useState({
@@ -113,7 +114,7 @@ const EyeTest = ({ navigation }) => {
                 {state.started && (
                     <LetterTest
                         letter={state.word}
-                        instruction="What is the word shown here - "
+                        instruction="What is the word shown here"
                         size={state.size}
                         inputLabel="Enter the word"
                         buttonText="Check"
@@ -168,7 +169,21 @@ const EyeTest = ({ navigation }) => {
                             Restart
                         </Button>
 
-                        <Button onPress={() => {}}>Copy</Button>
+                        <Button
+                            onPress={() => {
+                                Clipboard.setString(result);
+                                setState({
+                                    started: false,
+                                    word: "LIFE",
+                                    input: "",
+                                    score: 0,
+                                    size: 20,
+                                    resultsShown: false,
+                                });
+                            }}
+                        >
+                            Copy
+                        </Button>
                     </Dialog.Actions>
                 </Dialog>
             </Portal>

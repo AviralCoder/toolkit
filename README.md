@@ -21,7 +21,7 @@ We do not collect any of your personal data, neither manually or automatically. 
 
 ### How and When do we process your device properties?
 
--   Status Bar Color is processed the time you open the app. The background of the status bar is changed to the theme color of the app and the text color to white. Your status bar settings will change when you exit the app.
+-   Status Bar Color is processed the time you open the app. The background of the status bar is changed to the theme color of the app . Your status bar settings will change when you exit the app.
 -   We use your clipboard not to retrieve information but only to set the results of the tools in the app.
 
 ### Links to other Websites

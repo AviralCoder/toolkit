@@ -20,6 +20,7 @@ import { StyleSheet, Text, ScrollView } from "react-native";
 import Slider from "@react-native-community/slider";
 import BMICalculate from "../functions/bmiCalculate";
 import { COLOURS } from "../lib/colors/colors";
+import * as Clipboard from "expo-clipboard";
 
 const BMI_Calculator = ({ navigation }) => {
     const [gender, setGender] = useState("male");
@@ -189,6 +190,17 @@ const BMI_Calculator = ({ navigation }) => {
                                     }}
                                 >
                                     Okay
+                                </Button>
+
+                                <Button
+                                    onPress={() => {
+                                        Clipboard.setString(
+                                            `BMI: ${results.bmi} \n${results.phrase}`
+                                        );
+                                        setModalVisible(false);
+                                    }}
+                                >
+                                    Copy
                                 </Button>
                             </Dialog.Actions>
                         </Dialog>
