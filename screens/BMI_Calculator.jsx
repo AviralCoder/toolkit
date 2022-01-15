@@ -41,173 +41,162 @@ const BMI_Calculator = ({ navigation }) => {
     };
 
     return (
-        <React.Fragment>
-            <Provider>
-                {/* conditional rendering over here so that the status bar looks good on android device and the android emulator as well .. */}
-                {Constants.isDevice ? (
-                    <StatusBar
-                        style="auto"
-                        backgroundColor={COLOURS.primary}
-                        barStyle="light-content"
-                    />
-                ) : (
-                    <StatusBar style="auto" />
-                )}
+        <Provider>
+            <StatusBar
+                style="auto"
+                backgroundColor={COLOURS.primary}
+                barStyle="light-content"
+            />
 
-                <Topbar
-                    text="BMI Calculator"
-                    onIconClick={() => navigation.toggleDrawer()}
-                />
+            <Topbar
+                text="BMI Calculator"
+                onIconClick={() => navigation.toggleDrawer()}
+            />
 
-                <Body>
-                    <ScrollView>
-                        <RadioButton.Group
-                            onValueChange={(gender) => setGender(gender)}
-                            value={gender}
-                        >
-                            <RadioButton.Item
-                                label="Male"
-                                value="male"
-                                color={COLOURS.primary}
-                                labelStyle={styles.radioGroupText}
+            <Body>
+                <ScrollView>
+                    <RadioButton.Group
+                        onValueChange={(gender) => setGender(gender)}
+                        value={gender}
+                    >
+                        <RadioButton.Item
+                            label="Male"
+                            value="male"
+                            color={COLOURS.primary}
+                            labelStyle={styles.radioGroupText}
+                        />
+                        <RadioButton.Item
+                            label="Female"
+                            value="female"
+                            color={COLOURS.primary}
+                            labelStyle={styles.radioGroupText}
+                        />
+                    </RadioButton.Group>
+
+                    <Surface style={styles.heightView}>
+                        <Text style={styles.heightViewText}>Height</Text>
+                        <Slider
+                            style={{ width: 350, height: 40 }}
+                            minimumValue={0}
+                            maximumValue={250}
+                            minimumTrackTintColor={COLOURS.primary}
+                            maximumTrackTintColor={COLOURS.sliderMaxTrackTint}
+                            thumbTintColor={COLOURS.primary}
+                            value={height}
+                            step={1}
+                            onValueChange={(val) => setHeight(val)}
+                        />
+
+                        <Text style={styles.heightText}>{height} cm</Text>
+                    </Surface>
+
+                    <Surface style={styles.weightView}>
+                        <Text style={styles.weightViewTitle}>Weight</Text>
+
+                        <Text style={styles.weightViewText}>{weight} kg</Text>
+
+                        <Flexbox>
+                            <Avatar.Icon
+                                icon="plus"
+                                size={40}
+                                style={styles.iconCommonStyles}
+                                onTouchStart={() => {
+                                    setWeight((weight) => weight + 1);
+                                }}
                             />
-                            <RadioButton.Item
-                                label="Female"
-                                value="female"
-                                color={COLOURS.primary}
-                                labelStyle={styles.radioGroupText}
+                            <Avatar.Icon
+                                icon="minus"
+                                size={40}
+                                style={styles.iconCommonStyles}
+                                onTouchStart={() => {
+                                    setWeight((weight) => weight - 1);
+                                }}
                             />
-                        </RadioButton.Group>
+                        </Flexbox>
+                    </Surface>
 
-                        <Surface style={styles.heightView}>
-                            <Text style={styles.heightViewText}>Height</Text>
-                            <Slider
-                                style={{ width: 350, height: 40 }}
-                                minimumValue={0}
-                                maximumValue={250}
-                                minimumTrackTintColor={COLOURS.primary}
-                                maximumTrackTintColor={
-                                    COLOURS.sliderMaxTrackTint
-                                }
-                                thumbTintColor={COLOURS.primary}
-                                value={height}
-                                step={1}
-                                onValueChange={(val) => setHeight(val)}
+                    <Surface style={styles.ageView}>
+                        <Text style={styles.ageViewTitle}>Age</Text>
+
+                        <Text style={styles.ageViewText}>{age} years</Text>
+
+                        <Flexbox>
+                            <Avatar.Icon
+                                icon="plus"
+                                size={40}
+                                style={styles.iconCommonStyles}
+                                onTouchStart={() => {
+                                    setAge((age) => age + 1);
+                                }}
                             />
+                            <Avatar.Icon
+                                icon="minus"
+                                size={40}
+                                style={styles.iconCommonStyles}
+                                onTouchStart={() => {
+                                    setAge((age) => age - 1);
+                                }}
+                            />
+                        </Flexbox>
+                    </Surface>
 
-                            <Text style={styles.heightText}>{height} cm</Text>
-                        </Surface>
+                    <Button
+                        mode="contained"
+                        icon="calculator"
+                        onPress={() => {
+                            calculateBMI();
+                            setModalVisible(true);
+                        }}
+                        style={{
+                            marginHorizontal: 20,
+                            marginTop: 15,
+                            marginBottom: 30,
+                        }}
+                    >
+                        Calculate
+                    </Button>
+                </ScrollView>
 
-                        <Surface style={styles.weightView}>
-                            <Text style={styles.weightViewTitle}>Weight</Text>
+                <Portal>
+                    <Dialog
+                        visible={modalVisible}
+                        onDismiss={() => {
+                            setModalVisible(false);
+                        }}
+                    >
+                        <Dialog.Title>Results</Dialog.Title>
+                        <Dialog.Content>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    textAlign: "center",
+                                }}
+                            >{`BMI: ${results.bmi} \n${results.phrase}`}</Text>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                onPress={() => {
+                                    setModalVisible(false);
+                                }}
+                            >
+                                Okay
+                            </Button>
 
-                            <Text style={styles.weightViewText}>
-                                {weight} kg
-                            </Text>
-
-                            <Flexbox>
-                                <Avatar.Icon
-                                    icon="plus"
-                                    size={40}
-                                    style={styles.iconCommonStyles}
-                                    onTouchStart={() => {
-                                        setWeight((weight) => weight + 1);
-                                    }}
-                                />
-                                <Avatar.Icon
-                                    icon="minus"
-                                    size={40}
-                                    style={styles.iconCommonStyles}
-                                    onTouchStart={() => {
-                                        setWeight((weight) => weight - 1);
-                                    }}
-                                />
-                            </Flexbox>
-                        </Surface>
-
-                        <Surface style={styles.ageView}>
-                            <Text style={styles.ageViewTitle}>Age</Text>
-
-                            <Text style={styles.ageViewText}>{age} years</Text>
-
-                            <Flexbox>
-                                <Avatar.Icon
-                                    icon="plus"
-                                    size={40}
-                                    style={styles.iconCommonStyles}
-                                    onTouchStart={() => {
-                                        setAge((age) => age + 1);
-                                    }}
-                                />
-                                <Avatar.Icon
-                                    icon="minus"
-                                    size={40}
-                                    style={styles.iconCommonStyles}
-                                    onTouchStart={() => {
-                                        setAge((age) => age - 1);
-                                    }}
-                                />
-                            </Flexbox>
-                        </Surface>
-
-                        <Button
-                            mode="contained"
-                            icon="calculator"
-                            onPress={() => {
-                                calculateBMI();
-                                setModalVisible(true);
-                            }}
-                            style={{
-                                marginHorizontal: 20,
-                                marginTop: 15,
-                                marginBottom: 30,
-                            }}
-                        >
-                            Calculate
-                        </Button>
-                    </ScrollView>
-
-                    <Portal>
-                        <Dialog
-                            visible={modalVisible}
-                            onDismiss={() => {
-                                setModalVisible(false);
-                            }}
-                        >
-                            <Dialog.Title>Results</Dialog.Title>
-                            <Dialog.Content>
-                                <Text
-                                    style={{
-                                        fontSize: 18,
-                                        textAlign: "center",
-                                    }}
-                                >{`BMI: ${results.bmi} \n${results.phrase}`}</Text>
-                            </Dialog.Content>
-                            <Dialog.Actions>
-                                <Button
-                                    onPress={() => {
-                                        setModalVisible(false);
-                                    }}
-                                >
-                                    Okay
-                                </Button>
-
-                                <Button
-                                    onPress={() => {
-                                        Clipboard.setString(
-                                            `BMI: ${results.bmi} \n${results.phrase}`
-                                        );
-                                        setModalVisible(false);
-                                    }}
-                                >
-                                    Copy
-                                </Button>
-                            </Dialog.Actions>
-                        </Dialog>
-                    </Portal>
-                </Body>
-            </Provider>
-        </React.Fragment>
+                            <Button
+                                onPress={() => {
+                                    Clipboard.setString(
+                                        `BMI: ${results.bmi} \n${results.phrase}`
+                                    );
+                                    setModalVisible(false);
+                                }}
+                            >
+                                Copy
+                            </Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+            </Body>
+        </Provider>
     );
 };
 

@@ -26,9 +26,7 @@ const App = () => {
         try {
             loadFonts();
             setFontsLoaded(true);
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) {}
     }, []);
 
     if (!fontsLoaded) return <AppLoading />;
